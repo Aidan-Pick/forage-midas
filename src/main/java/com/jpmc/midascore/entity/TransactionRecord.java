@@ -25,14 +25,18 @@ public class TransactionRecord {
     @Column(nullable = false, updatable = false)
     private Instant timestamp;
 
+    @Column(nullable = false)
+    private float incentive;
+
     // This is a JPA requirement, marked as protected to limit misuse
     protected TransactionRecord() {}
 
-    public TransactionRecord(UserRecord sender, UserRecord recipient, float amount) {
+    public TransactionRecord(UserRecord sender, UserRecord recipient, float amount, float incentive) {
         this.sender = sender;
         this.recipient = recipient;
         this.amount = amount;
         this.timestamp = Instant.now();
+        this.incentive = incentive;
     }
 
     public UserRecord getSender() {
@@ -51,6 +55,10 @@ public class TransactionRecord {
         return timestamp;
     }
 
+    public float getIncentive() {
+        return incentive;
+    }
+
     public Long getId() {
         return id;
     }
@@ -63,6 +71,7 @@ public class TransactionRecord {
                 ", recipient=" + recipient.getName() +
                 ", amount=" + amount +
                 ", timestamp=" + timestamp +
+                ", incentive=" + incentive +
                 '}';
     }
 }
